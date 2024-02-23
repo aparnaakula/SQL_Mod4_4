@@ -9,6 +9,20 @@ values(2, 'Dale', 'Grace', '4002 Park PL Staten Island,NY 10301', '4242 0000 101
 insert into customer(customer_id,first_name,last_name,address,billing_info)
 values(3, 'Mark', 'Hightower', '445 Atlantic Av, Queens,NY 11212', '5805 7272 0202 6767');
 
+-- INSERT DATA USING STORED PROC
+create or replace function add_customer(_customer_id INTEGER, _first_name VARCHAR, _last_name VARCHAR, _address VARCHAR, _billing_info VARCHAR)
+returns void
+as $MAIN$
+begin 
+	insert into customer(customer_id,first_name,last_name,address,billing_info)
+	values (_customer_id,_first_name,_last_name,_address,_billing_info);
+end;
+$MAIN$
+language plpgsql;
+
+select add_customer(4, 'Aparna', 'Watson', '335 Sunshine Lane, 56342', '1111 2222 3333 4444');
+
+
 -- Car
 
 insert into car(car_id,salesperson_id,customer_id,make,model,car_year)
@@ -19,6 +33,20 @@ values(2, '2', '2', 'Subaru', 'Outback', '11-25-2020');
 
 insert into car(car_id,salesperson_id,customer_id,make,model,car_year)
 values(3, '3', '3', 'Acura', 'ILX', '03-12-2019');
+
+-- INSERT DATA USING STORED PROC
+create or replace function add_car(_car_id INTEGER, _salesperson_id INTEGER, _customer_id INTEGER, _make VARCHAR, _model VARCHAR, _car_year DATE)
+returns void
+as $MAIN$
+begin 
+	insert into car(car_id,salesperson_id,customer_id,make,model,car_year)
+	values (_car_id,_salesperson_id, _customer_id, _make, _model, _car_year);
+end;
+$MAIN$
+language plpgsql;
+
+select add_car(4, '3', '4', 'Nissan', 'Altima', '01-12-2015');
+
 
 
 -- Salesperson
